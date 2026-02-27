@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodent Damage Complaint | Vishal Mega Mart</title>
+  <style>
+    :root {
+      --primary: #6f5bd6;
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --danger-bg: #fdecea;
+      --danger-text: #b42318;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header img {
+      height: 32px;
+    }
+
+    .header-text h1 {
+      font-size: 16px;
+      margin: 0 0 2px 0;
+      color: var(--text);
+    }
+
+    .vmm-gradient {
+      background: linear-gradient(90deg, #ff007f, #6f5bd6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 6px 0;
+    }
+
+    .helper {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    label .required {
+      color: #dc2626;
+      margin-left: 2px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    input:required, textarea:required, select:required {
+      border-left: 3px solid #dc2626;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #d1d5db;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .review-box {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .review-item label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .review-item input {
+      background: white;
+      font-weight: 500;
+    }
+
+    .alert {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    input.error, textarea.error, select.error {
+  border: 2px solid #dc2626;
+  background-color: #fef2f2;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .form-row .form-group {
+      margin-bottom: 0;
+    }
+
+    .hindi {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 12px;
+    }
+
+    .file-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 4px 0 0 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      padding: 8px;
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 20px 32px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="card">
+    
+    <header>
+      <img src="https://raw.githubusercontent.com/inder20216/openmind-assets/main/logo.png" alt="OpenMind Logo">
+      <div class="header-text">
+        <h1>Rodent Damage Complaint Reporting</h1>
+        <div class="subtitle"><span class="vmm-gradient">Vishal Mega Mart</span> </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- STEP 1: VERIFY MOBILE -->
+      <div class="step active" id="step1">
+        <h2>Verify Employee</h2>
+        <p class="helper">Enter your registered mobile number to continue</p>
+        
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="tel" id="mobileInput" placeholder="10-digit mobile number" maxlength="10">
+        </div>
+
+        <button class="btn-primary" id="verifyBtn" onclick="verifyEmployee()">Verify & Continue</button>
+
+        <div class="alert" id="verifyError">
+          We could not verify your details. Please contact support at <strong>9711772722</strong>
+        </div>
+      </div>
+
+      <!-- STEP 2: REVIEW DETAILS -->
+      <div class="step" id="step2">
+        <h2>✓ Verification Successful</h2>
+        <p class="helper">Please review the details carefully. If incorrect, contact support at <strong>9711772722</strong></p>
+
+        <div class="review-box">
+          <div class="review-grid">
+            <div class="review-item">
+              <label>Employee Name</label>
+              <input type="text" id="empName" readonly>
+            </div>
+            <div class="review-item">
+              <label>Employee Code</label>
+              <input type="text" id="empCode" readonly>
+            </div>
+            <div class="review-item">
+              <label>Email Address</label>
+              <input type="text" id="empEmail" readonly>
+            </div>
+            <div class="review-item">
+              <label>Mobile Number</label>
+              <input type="text" id="empPhone" readonly>
+            </div>
+            <div class="review-item">
+              <label>Store Code</label>
+              <input type="text" id="storeCode" readonly>
+            </div>
+            <div class="review-item">
+              <label>Store Name</label>
+              <input type="text" id="storeName" readonly>
+            </div>
+            <div class="review-item">
+              <label>Store City</label>
+              <input type="text" id="storeCity" readonly>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goToStep(1)">← Go Back & Try Different Number</button>
+          <button class="btn-primary" onclick="goToStep('2b')">Confirm & Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2B: INSTRUCTIONS -->
+      <div class="step" id="step2b">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+          <div style="font-size:28px;">📋</div>
+          <h2 style="margin:0;">Important Instructions <span class="hindi" style="font-size:14px;">/ महत्वपूर्ण निर्देश</span></h2>
+        </div>
+        <p class="helper">Please read carefully before filling the form. / फॉर्म भरने से पहले कृपया ध्यान से पढ़ें।</p>
+
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+
+          <!-- Point 1 -->
+          <div style="background:#f0f4ff; border-left:4px solid #6f5bd6; border-radius:8px; padding:14px 16px;">
+            <div style="font-weight:700; color:#6f5bd6; margin-bottom:4px;">① All Fields are Mandatory / सभी फ़ील्ड अनिवार्य हैं</div>
+            <div style="font-size:13px; color:#1f2937;">Please read each field carefully before entering any information. Do not leave any field blank.<br>
+            <span style="color:#6b7280;">कोई भी फ़ील्ड खाली न छोड़ें। जानकारी दर्ज करने से पहले प्रत्येक फ़ील्ड को ध्यान से पढ़ें।</span></div>
+          </div>
+
+          <!-- Point 2 -->
+          <div style="background:#f0f4ff; border-left:4px solid #6f5bd6; border-radius:8px; padding:14px 16px;">
+            <div style="font-weight:700; color:#6f5bd6; margin-bottom:4px;">② Product Details Must Be Complete / उत्पाद विवरण पूर्ण होना चाहिए</div>
+            <div style="font-size:13px; color:#1f2937;">
+              Ensure the <strong>Article Number</strong> and <strong>Product Serial Number</strong> are entered correctly and completely.<br>
+              <span style="color:#6b7280;"><strong>आर्टिकल नंबर</strong> और <strong>प्रोडक्ट सीरियल नंबर</strong> सही और पूर्ण रूप से दर्ज करें।</span>
+            </div>
+          </div>
+
+          <!-- Point 3 -->
+          <div style="background:#fff7ed; border-left:4px solid #f97316; border-radius:8px; padding:14px 16px;">
+            <div style="font-weight:700; color:#c2410c; margin-bottom:4px;">③ Product Description Must Be Detailed / उत्पाद विवरण विस्तृत होना चाहिए</div>
+            <div style="font-size:13px; color:#1f2937;">
+              Include the <strong>full product name, weight, and pack size</strong>.<br>
+              ✅ <em>Example: FIRST CROP OATS PLAIN 1.5KG-8PK</em><br>
+              ❌ <strong>Do NOT write</strong> vague descriptions like <em>"Rodent Damage"</em> or incomplete information.<br>
+              <br>
+              <span style="color:#6b7280;">उत्पाद का <strong>पूरा नाम, वजन और पैक साइज़</strong> लिखें।<br>
+              ✅ <em>उदाहरण: FIRST CROP OATS PLAIN 1.5KG-8PK</em><br>
+              ❌ <strong>"Rodent Damage"</strong> जैसे अधूरे विवरण न लिखें।</span><br><br>
+              <div style="background:#fdecea; color:#b42318; border-radius:6px; padding:8px 10px; font-weight:600; font-size:12px;">
+                ⚠️ Any form with an incomplete description will be <u>rejected and not considered</u>.<br>
+                अधूरे विवरण वाला फॉर्म <u>अस्वीकार कर दिया जाएगा</u>।
+              </div>
+            </div>
+          </div>
+
+          <!-- Point 4 -->
+          <div style="background:#f0f4ff; border-left:4px solid #6f5bd6; border-radius:8px; padding:14px 16px;">
+            <div style="font-weight:700; color:#6f5bd6; margin-bottom:4px;">④ Enter Correct Pricing / सही मूल्य दर्ज करें</div>
+            <div style="font-size:13px; color:#1f2937;">
+              Pricing must be numeric only — no letters or special characters.<br>
+              ✅ <em>Correct: 256.16 &nbsp;|&nbsp; 12 &nbsp;|&nbsp; 99.00</em><br>
+              ❌ <em>Incorrect: Rs256, 12/-, ABC</em><br>
+              <span style="color:#6b7280;">मूल्य केवल संख्यात्मक होना चाहिए — कोई अक्षर या विशेष वर्ण नहीं।</span>
+            </div>
+          </div>
+
+          <!-- Point 5 -->
+          <div style="background:#fff0f6; border-left:4px solid #ff007f; border-radius:8px; padding:14px 16px;">
+            <div style="font-weight:700; color:#be185d; margin-bottom:4px;">⑤ One Form Per Article / प्रत्येक आर्टिकल के लिए अलग फॉर्म</div>
+            <div style="font-size:13px; color:#1f2937;">
+              <strong>Fill one separate form for each damaged article.</strong><br>
+              ✅ <em>Example: If 5 out of 10 Lays packs are damaged → Fill <strong>5 separate forms</strong>, one for each damaged pack.</em><br>
+              ❌ Do NOT combine multiple articles into a single form submission.<br>
+              <br>
+              <span style="color:#6b7280;"><strong>प्रत्येक क्षतिग्रस्त आर्टिकल के लिए एक अलग फॉर्म भरें।</strong><br>
+              ✅ <em>उदाहरण: यदि 10 में से 5 लेज़ पैक खराब हैं → <strong>5 अलग-अलग फॉर्म</strong> भरें।</em><br>
+              ❌ एक फॉर्म में कई आर्टिकल न भरें।</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" onclick="goToStep(2)">← Go Back / वापस जाएं</button>
+          <button class="btn-primary" onclick="goToStep(3)">I Understand, Proceed to Form / मैं समझ गया, फॉर्म भरें →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: COMPLAINT FORM -->
+      <div class="step" id="step3">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h2 style="margin: 0;">Rodent Damage Complaint Form</h2>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn-secondary" onclick="goToStep('2b')" style="padding: 8px 16px; font-size: 13px;">
+              ← Instructions
+            </button>
+            <button type="button" class="btn-secondary" onclick="logoutUser()" style="padding: 8px 16px; font-size: 13px;">
+              Change Employee
+            </button>
+          </div>
+        </div>
+        <p class="helper">Please fill all required details carefully. All fields are mandatory<br>
+        कृपया सभी विवरण सही-सही भरें। सभी फील्ड अनिवार्य हैं।</p>
+
+        <!-- Employee Info Display -->
+        <div class="review-box" style="margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <div class="review-item">
+              <label style="font-size: 11px;">Employee ID</label>
+              <input type="text" id="displayEmpCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+            </div>
+            <div class="review-item">
+              <label style="font-size: 11px;">Store Code</label>
+              <input type="text" id="displayStoreCode" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+            </div>
+            <div class="review-item">
+              <label style="font-size: 11px;">Store Name</label>
+              <input type="text" id="displayStoreName" readonly style="background: #f9fafb; cursor: default; font-size: 12px; padding: 8px 10px;">
+            </div>
+          </div>
+        </div>
+
+        <form id="complaintForm" enctype="multipart/form-data" onsubmit="submitComplaint(event)">
+
+          <!-- Product Article No -->
+          <div class="form-group">
+            <label>Product Article No. <span class="required">*</span> <span class="hindi">/ प्रोडक्ट आर्टिकल नंबर</span></label>
+            <input type="text" name="articleNo" id="articleNo" required 
+       placeholder="Enter 6-12 digit article number / 6-12 अंकों का आर्टिकल नंबर दर्ज करें"
+       oninput="validateArticleNo(this)">
+<div class="error-message" id="articleNoError">Article number must be 6-12 digits only / आर्टिकल नंबर केवल 6-12 अंक होना चाहिए</div>
+          </div>
+
+          <!-- Product Serial No -->
+          <div class="form-group">
+            <label>Rodent Damage Product Sr No. <span class="required">*</span> <span class="hindi">/ सीरियल नंबर</span></label>
+            <input type="text" name="serialNo" id="serialNo" required
+       placeholder="Enter 10-18 digit serial number / 10-18 अंकों का सीरियल नंबर दर्ज करें"
+       oninput="validateSerialNo(this)">
+<div class="error-message" id="serialNoError">Serial number must be 10-18 digits only (e.g., 8901030989742) / सीरियल नंबर केवल 10-18 अंक होना चाहिए</div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label>Product Description <span class="required">*</span> <span class="hindi">/ विवरण</span></label>
+            <textarea name="description" id="description" required rows="2"
+          placeholder="Enter detailed product description including name, weight, pack size (e.g., FIRST CROP OATS PLAIN 1.5KG-8PK) / उत्पाद का पूरा विवरण दर्ज करें - नाम, वजन, पैक साइज़"
+          oninput="validateDescription(this)"></textarea>
+<div class="error-message" id="descriptionError">Description must be detailed with product name, weight, and pack size (minimum 20 characters) / विवरण में उत्पाद का नाम, वजन और पैक साइज़ होना चाहिए (कम से कम 20 अक्षर)</div>
+          </div>
+
+          <!-- Product MRP -->
+          <div class="form-group">
+            <label>Product Value (MRP) <span class="required">*</span> <span class="hindi">/ उत्पाद MRP</span></label>
+            <input type="text" name="mrp" id="mrp" required
+       placeholder="Enter MRP (e.g., 137.50, max 9999.99) / MRP दर्ज करें (उदा. 137.50)"
+       oninput="validateMRP(this)">
+<div class="error-message" id="mrpError">MRP must be a valid amount (max 9999.99) / MRP मान्य राशि होनी चाहिए (अधिकतम 9999.99)</div>
+          </div>
+
+          <!-- Manufacturing Date & Expiry Date (Side by Side) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Product MFD <span class="required">*</span> <span class="hindi">/ निर्माण तिथि</span></label>
+              <input type="date" name="mfd" required>
+            </div>
+            <div class="form-group">
+              <label>Product EXP Date <span class="required">*</span> <span class="hindi">/ समाप्ति तिथि</span></label>
+              <input type="date" name="expDate" required>
+            </div>
+          </div>
+
+          <!-- Images (Side by Side in Rows of 2) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>EXP Date Image <span class="required">*</span> <span class="hindi">/ एक्सपायरी फोटो</span></label>
+              <input type="file" name="expImage" accept="image/*" capture="environment" required>
+            </div>
+            <div class="form-group">
+              <label>Bite Area Image <span class="required">*</span> <span class="hindi">/ काटने वाली जगह</span></label>
+              <input type="file" name="biteImage" accept="image/*" capture="environment" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Gap Before <span class="required">*</span> <span class="hindi">/ गैप (पहले)</span></label>
+              <input type="file" name="gapBeforeImage" accept="image/*" capture="environment" required>
+            </div>
+            <div class="form-group">
+              <label>Gap After <span class="required">*</span> <span class="hindi">/ गैप (बाद में)</span></label>
+              <input type="file" name="gapAfterImage" accept="image/*" capture="environment" required>
+            </div>
+          </div>
+
+          <!-- Gap Status & Closing Date (Side by Side) -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Gap Status <span class="required">*</span> <span class="hindi">/ गैप की स्थिति</span></label>
+              <select name="gapStatus" id="gapStatus" required>
+                <option value="">Select / चुनें</option>
+                <option value="Closed">Closed / बंद</option>
+                <option value="Open">Open / खुला</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Gap Closing Date <span class="required">*</span> <span class="hindi">/ बंद करने की तारीख</span></label>
+              <input type="date" name="gapClosingDate" id="gapClosingDate" required>
+            </div>
+          </div>
+
+          <!-- Auto-filled Employee Details (Hidden) -->
+          <input type="hidden" name="employeeName" id="hiddenEmpName">
+          <input type="hidden" name="employeeCode" id="hiddenEmpCode">
+          <input type="hidden" name="employeeEmail" id="hiddenEmpEmail">
+          <input type="hidden" name="employeePhone" id="hiddenEmpPhone">
+          <input type="hidden" name="storeCode" id="hiddenStoreCode">
+          <input type="hidden" name="storeName" id="hiddenStoreName">
+          <input type="hidden" name="storeCity" id="hiddenStoreCity">
+
+          <!-- Net Selling Price -->
+          <div class="form-group">
+            <label>Net Selling Price <span class="required">*</span> <span class="hindi">/ नेट बिक्री मूल्य</span></label>
+            <input type="text" name="netSellingPrice" id="netSellingPrice" required
+               placeholder="Enter net selling price (e.g., 120.00) / नेट बिक्री मूल्य दर्ज करें (उदा. 120.00)"
+               oninput="validateNetSellingPrice(this)">
+            <div class="error-message" id="netSellingPriceError">Net Selling Price must be a valid numeric amount (e.g., 120, 256.16) / नेट बिक्री मूल्य मान्य संख्या होनी चाहिए</div>
+          </div>
+
+          <!-- Current Offer In Article -->
+          <div class="form-group">
+            <label>Current Offer In Article <span class="required">*</span> <span class="hindi">/ आर्टिकल पर वर्तमान ऑफर</span></label>
+            <input type="text" name="currentOffer" id="currentOffer" required
+               placeholder="Enter offer (e.g., Buy 1 Get 1, 20% off) or type 'No Offer' if none / ऑफर दर्ज करें या कोई ऑफर न हो तो 'No Offer' लिखें">
+          </div>
+
+          <button type="submit" class="btn-primary" id="submitBtn" style="margin-top: 10px;">Submit Complaint / शिकायत दर्ज करें</button>
+        </form>
+      </div>
+
+      <!-- STEP 4: SUCCESS MESSAGE -->
+      <div class="step" id="step4">
+        <div style="text-align: center; padding: 40px 20px;">
+          <div style="font-size: 48px; margin-bottom: 16px;">✓</div>
+          <h2>Complaint Submitted Successfully!</h2>
+          <p class="helper">शिकायत सफलतापूर्वक दर्ज की गई!</p>
+          
+          <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 16px; margin: 24px 0;">
+            <p style="margin: 0; color: #15803d; font-weight: 500;">
+              Your complaint has been recorded. You will receive confirmation shortly.<br>
+              <span style="font-size: 13px;">आपकी शिकायत दर्ज कर ली गई है। शीघ्र ही पुष्टि प्राप्त होगी।</span>
+            </p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-primary" onclick="submitAnotherComplaint()">
+              Submit Another Complaint / अन्य शिकायत दर्ज करें
+            </button>
+            <button class="btn-secondary" onclick="logoutUser()">
+              Change Employee / कर्मचारी बदलें
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      This page is intended strictly for official use only by Vishal Mega Mart registered employees.<br>
+      Powered by <strong>Open Mind Services Limited</strong>. Unauthorized access or misuse of this system is prohibited.
+    </footer>
+
+  </div>
+</div>
+
+<script>
+const VERIFY_WEBHOOK = 'https://automation.openmindhelpline.com/webhook/Rodent Damage Form';
+const SUBMIT_WEBHOOK = 'https://automation.openmindhelpline.com/webhook/form-submit';
+
+// ====== VALIDATION FUNCTIONS ======
+
+// Validate Article Number: 6-12 digits only
+function validateArticleNo(input) {
+  const value = input.value.trim();
+  const errorDiv = document.getElementById('articleNoError');
+  
+  // Remove non-digits
+  input.value = value.replace(/\D/g, '');
+  
+  if (input.value.length > 0 && (input.value.length < 6 || input.value.length > 12)) {
+    input.classList.add('error');
+    errorDiv.classList.add('show');
+    return false;
+  } else {
+    input.classList.remove('error');
+    errorDiv.classList.remove('show');
+    return true;
+  }
+}
+
+// Validate Serial Number: 10-18 digits only
+function validateSerialNo(input) {
+  const value = input.value.trim();
+  const errorDiv = document.getElementById('serialNoError');
+  
+  // Remove non-digits
+  input.value = value.replace(/\D/g, '');
+  
+  if (input.value.length > 0 && (input.value.length < 10 || input.value.length > 18)) {
+    input.classList.add('error');
+    errorDiv.classList.add('show');
+    return false;
+  } else {
+    input.classList.remove('error');
+    errorDiv.classList.remove('show');
+    return true;
+  }
+}
+
+// Validate Description: Must be detailed (minimum 20 characters)
+function validateDescription(input) {
+  const value = input.value.trim();
+  const errorDiv = document.getElementById('descriptionError');
+  
+  // Check if too short or looks like generic text
+  const genericWords = ['rat', 'bite', 'test', 'damage', 'na', 'n/a'];
+  const isGeneric = genericWords.some(word => value.toLowerCase() === word);
+  
+  if (value.length > 0 && (value.length < 20 || isGeneric)) {
+    input.classList.add('error');
+    errorDiv.classList.add('show');
+    return false;
+  } else {
+    input.classList.remove('error');
+    errorDiv.classList.remove('show');
+    return true;
+  }
+}
+
+// Validate MRP: Max 4 digits before decimal, 2 after
+function validateMRP(input) {
+  const value = input.value.trim();
+  const errorDiv = document.getElementById('mrpError');
+  
+  // Remove all except digits and decimal point
+  input.value = value.replace(/[^\d.]/g, '');
+  
+  // Check format: max 4 digits before decimal, 2 after
+  const regex = /^\d{1,4}(\.\d{0,2})?$/;
+  
+  if (input.value.length > 0 && !regex.test(input.value)) {
+    input.classList.add('error');
+    errorDiv.classList.add('show');
+    return false;
+  } else {
+    input.classList.remove('error');
+    errorDiv.classList.remove('show');
+    return true;
+  }
+}
+
+// Final validation before form submission
+function validateForm() {
+  const articleNo = document.getElementById('articleNo');
+  const serialNo = document.getElementById('serialNo');
+  const description = document.getElementById('description');
+  const mrp = document.getElementById('mrp');
+  
+  const netSellingPrice = document.getElementById('netSellingPrice');
+  
+  const validations = [
+    validateArticleNo(articleNo),
+    validateSerialNo(serialNo),
+    validateDescription(description),
+    validateMRP(mrp),
+    validateNetSellingPrice(netSellingPrice)
+  ];
+  
+  return validations.every(v => v === true);
+}
+
+// Validate Net Selling Price
+function validateNetSellingPrice(input) {
+  const value = input.value.trim();
+  const errorDiv = document.getElementById('netSellingPriceError');
+  
+  // Remove all except digits and decimal point
+  input.value = value.replace(/[^\d.]/g, '');
+  
+  const regex = /^\d{1,4}(\.\d{0,2})?$/;
+  
+  if (input.value.length > 0 && !regex.test(input.value)) {
+    input.classList.add('error');
+    errorDiv.classList.add('show');
+    return false;
+  } else {
+    input.classList.remove('error');
+    errorDiv.classList.remove('show');
+    return true;
+  }
+}
+
+async function verifyEmployee() {
+  const mobile = document.getElementById('mobileInput').value.trim();
+  const errorDiv = document.getElementById('verifyError');
+  const btn = document.getElementById('verifyBtn');
+  
+  errorDiv.classList.remove('show');
+  
+  if (!mobile || mobile.length !== 10) {
+    errorDiv.textContent = 'Please enter a valid 10-digit mobile number';
+    errorDiv.classList.add('show');
+    return;
+  }
+
+  btn.textContent = 'Verifying...';
+  btn.disabled = true;
+
+  try {
+    const response = await fetch(VERIFY_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: mobile })
+    });
+
+    const data = await response.json();
+
+    if (data.success === true) {
+      document.getElementById('empName').value = data.employee.name || '-';
+      document.getElementById('empCode').value = data.employee.code || '-';
+      document.getElementById('empEmail').value = data.employee.email || '-';
+      document.getElementById('empPhone').value = data.employee.phone || mobile;
+      document.getElementById('storeCode').value = data.store.code || '-';
+      document.getElementById('storeName').value = data.store.name || '-';
+      document.getElementById('storeCity').value = data.store.city || '-';
+
+      goToStep(2);
+    } else {
+      throw new Error('Verification failed');
+    }
+
+  } catch (error) {
+    errorDiv.textContent = 'We could not verify your details. Please contact support at 9711772722';
+    errorDiv.classList.add('show');
+  } finally {
+    btn.textContent = 'Verify & Continue';
+    btn.disabled = false;
+  }
+}
+
+function goToStep(stepNumber) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + stepNumber).classList.add('active');
+  
+  if (stepNumber === 3) {
+    document.getElementById('hiddenEmpName').value = document.getElementById('empName').value;
+    document.getElementById('hiddenEmpCode').value = document.getElementById('empCode').value;
+    document.getElementById('hiddenEmpEmail').value = document.getElementById('empEmail').value;
+    document.getElementById('hiddenEmpPhone').value = document.getElementById('empPhone').value;
+    document.getElementById('hiddenStoreCode').value = document.getElementById('storeCode').value;
+    document.getElementById('hiddenStoreName').value = document.getElementById('storeName').value;
+    document.getElementById('hiddenStoreCity').value = document.getElementById('storeCity').value;
+    
+    document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
+    document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
+    document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
+  }
+}
+
+async function submitComplaint(event) {
+  event.preventDefault();
+  
+    // Validate form before submission
+  if (!validateForm()) {
+    alert('Please fix all validation errors before submitting. / कृपया सबमिट करने से पहले सभी त्रुटियों को ठीक करें।');
+    return;
+  }
+
+  const form = document.getElementById('complaintForm');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  submitBtn.textContent = 'Submitting... / जमा हो रहा है...';
+  submitBtn.disabled = true;
+  
+  // Create FormData - files will be sent as binary automatically
+  const formData = new FormData(form);
+  
+  try {
+    const response = await fetch(SUBMIT_WEBHOOK, {
+      method: 'POST',
+      body: formData  // Send as multipart/form-data
+      // DO NOT add Content-Type header - browser sets it automatically
+    });
+    
+    if (response.ok) {
+      goToStep(4);
+    } else {
+      throw new Error('Submission failed');
+    }
+    
+  } catch (error) {
+    alert('Failed to submit complaint. Please try again. / शिकायत दर्ज करने में विफल। कृपया पुनः प्रयास करें।');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Complaint / शिकायत दर्ज करें';
+  }
+}
+
+function submitAnotherComplaint() {
+  document.getElementById('complaintForm').reset();
+  
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Submit Complaint / शिकायत दर्ज करें';
+  
+  document.getElementById('displayEmpCode').value = document.getElementById('empCode').value;
+  document.getElementById('displayStoreCode').value = document.getElementById('storeCode').value;
+  document.getElementById('displayStoreName').value = document.getElementById('storeName').value;
+  
+  goToStep(3);
+}
+
+function logoutUser() {
+  document.getElementById('complaintForm').reset();
+  document.getElementById('mobileInput').value = '';
+  goToStep(1);
+}
+</script>
+
+</body>
+</html>
